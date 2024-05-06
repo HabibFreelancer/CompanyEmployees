@@ -1,5 +1,7 @@
 ﻿using CompanyEmployees.Presentation.ActionFilters;
+using CompanyEmployees.Presentation.ApiBaseResponseExtensions;
 using CompanyEmployees.Presentation.ModelBinders;
+using Entities.Responses;
 using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +24,7 @@ the controller except the ones that already have the ResponseCache
 attribute applied*/
     /*[ResponseCache(CacheProfileName = "120SecondsDuration")] => Marvin.Cache.Headers will provide for us
      * response cache attribute*/
-    public class CompaniesController : ControllerBase
+    public class CompaniesController : ApiControllerBase
     {
         private readonly IServiceManager _service;
         public CompaniesController(IServiceManager service) => _service = service;
@@ -38,8 +40,17 @@ and CreateCompany are the only actions on the root URI level
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetCompanies()
         {
-            var companies = await
-            _service.CompanyService.GetAllCompaniesAsync(trackChanges: false);
+            var baseResult = await _service.CompanyService.GetAllCompaniesAsync(trackChanges: false);
+
+
+            /*our controller inherits from the ApiControllerBase, which inherits
+from the ControllerBase class. In the GetCompanies action, we extract
+the result from the service layer and cast the baseResult variable to the
+concrete ApiOkResponse type, and use the Result property to extract
+our required result of type IEnumerable<CompanyDto>.*/
+
+            var companies = baseResult.GetResult<IEnumerable<CompanyDto>>(); // new ApiOkResponse<IEnumerable<CompanyDto>>((IEnumerable<CompanyDto>)baseResult).Result;
+
             return Ok(companies);
         }
 
@@ -52,8 +63,14 @@ and CreateCompany are the only actions on the root URI level
         [HttpCacheValidation(MustRevalidate = false)]
         public async Task<IActionResult> GetCompany(Guid id)
         {
-            var company = await _service.CompanyService.GetCompanyAsync(id, trackChanges:
+            var baseResult = await _service.CompanyService.GetCompanyAsync(id, trackChanges:
             false);
+
+            if (!baseResult.Success)
+                return ProcessError(baseResult);
+
+            var company = baseResult.GetResult<CompanyDto>();
+
             return Ok(company);
         }
 
