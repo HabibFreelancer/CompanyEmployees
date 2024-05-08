@@ -3,6 +3,7 @@
 using CompanyEmployees.Extensions;
 using CompanyEmployees.Presentation.ActionFilters;
 using Contracts;
+using MediatR;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -10,6 +11,9 @@ using Microsoft.Extensions.Options;
 using NLog;
 using Service.DataShaping;
 using Shared.DataTransferObjects;
+using static System.Net.Mime.MediaTypeNames;
+using MediatR;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,6 +92,13 @@ builder.Services.AddJwtConfiguration(builder.Configuration);
 
 /*inject the swagger configuration in IOC */
 builder.Services.ConfigureSwagger();
+
+/*The AddMediatR method will scan the project assembly that contains the
+handlers that we are going to use to handle our business logic. Since we
+are going to place those handlers in the Application project, we are
+using the Application’s assembly as a parameter.*/
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Application.AssemblyReference).Assembly));
+
 
 var app = builder.Build();
 

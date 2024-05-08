@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{3512F40F-E770-4295-ACBB-28246499CC7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Contracts", "Service.Contracts\Service.Contracts.csproj", "{3E8C890B-912C-4FFC-B7B8-ACF28B56F0C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Contracts", "Service.Contracts\Service.Contracts.csproj", "{3E8C890B-912C-4FFC-B7B8-ACF28B56F0C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{175F66BC-398D-4897-B566-305D3DFED3F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployees.Presentation", "CompanyEmployees.Presentation\CompanyEmployees.Presentation.csproj", "{FE422D7D-3421-420D-A2E2-BFF76535F94C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{D05FA21F-E72E-45F4-845F-9BD0FC9B4FFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{1967C547-9D5F-4872-862C-95D1BE44961F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{D05FA21F-E72E-45F4-845F-9BD0FC9B4FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D05FA21F-E72E-45F4-845F-9BD0FC9B4FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D05FA21F-E72E-45F4-845F-9BD0FC9B4FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1967C547-9D5F-4872-862C-95D1BE44961F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1967C547-9D5F-4872-862C-95D1BE44961F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1967C547-9D5F-4872-862C-95D1BE44961F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1967C547-9D5F-4872-862C-95D1BE44961F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

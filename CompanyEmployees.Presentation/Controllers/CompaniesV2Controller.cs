@@ -1,4 +1,6 @@
-﻿using CompanyEmployees.Presentation.ApiBaseResponseExtensions;
+﻿using Application.Queries;
+using CompanyEmployees.Presentation.ApiBaseResponseExtensions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -22,15 +24,14 @@ namespace CompanyEmployees.Presentation.Controllers
     [Route("api/companies")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v2")]
-    public class CompaniesV2Controller : ApiControllerBase
+    public class CompaniesV2Controller : ControllerBase
     {
-        private readonly IServiceManager _service;
-        public CompaniesV2Controller(IServiceManager service) => _service = service;
+        private readonly ISender _sender;
+        public CompaniesV2Controller(ISender sender) => _sender = sender;
         [HttpGet]
         public async Task<IActionResult> GetCompanies()
         {
-            var baseResult = await _service.CompanyService.GetAllCompaniesAsync(trackChanges: false);
-            var companies = baseResult.GetResult<IEnumerable<CompanyDto>>(); // new ApiOkResponse<IEnumerable<CompanyDto>>((IEnumerable<CompanyDto>)baseResult).Result;
+            var companies = await _sender.Send(new GetCompaniesQuery(TrackChanges: false));
             var companiesV2 = companies.Select(x => $"{x.Name} V2");
             return Ok(companiesV2);
 
