@@ -1,4 +1,5 @@
 ﻿using Application.Commands;
+using Application.Notifications;
 using Application.Queries;
 using CompanyEmployees.Presentation.ActionFilters;
 using CompanyEmployees.Presentation.ApiBaseResponseExtensions;
@@ -30,7 +31,13 @@ attribute applied*/
     public class CompaniesController : ControllerBase
     {
         private readonly ISender _sender;
-        public CompaniesController(ISender sender) => _sender = sender;
+        private readonly IPublisher _publisher;
+        public CompaniesController(ISender sender , IPublisher publisher) { 
+            _sender = sender;
+           /* inject another interface, which we are going to use to publish
+notifications.*/
+            _publisher = publisher;
+        }
 
         /*If we inspect our CompaniesController, we can see that GetCompanies
 and CreateCompany are the only actions on the root URI level
@@ -93,7 +100,8 @@ and CreateCompany are the only actions on the root URI level
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteCompany(Guid id)
         {
-            await _sender.Send(new DeleteCompanyCommand(id, TrackChanges: false));
+            await _publisher.Publish(new CompanyDeletedNotification(id, TrackChanges:
+            false));
             return NoContent();
         }
 
