@@ -47,6 +47,22 @@ cancellationToken)
             return companyDto;
 
         }
+        public async Task<IEnumerable<CompanyDto>> Handle(GetCompaniesByIdsQuery request,
+            CancellationToken cancellationToken)
+        {
+
+
+            if (request.ids is null)
+                throw new IdParametersBadRequestException();
+            var companyEntities = await _repository.Company.GetByIdsAsync(request.ids,
+            request.TrackChanges);
+            if (request.ids.Count() != companyEntities.Count())
+                throw new CollectionByIdsBadRequestException();
+            var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
+            return companiesToReturn;
+
+
+        }
     }
 }
 

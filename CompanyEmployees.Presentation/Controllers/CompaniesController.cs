@@ -1,4 +1,5 @@
-﻿using Application.Queries;
+﻿using Application.Commands;
+using Application.Queries;
 using CompanyEmployees.Presentation.ActionFilters;
 using CompanyEmployees.Presentation.ApiBaseResponseExtensions;
 using CompanyEmployees.Presentation.ModelBinders;
@@ -59,67 +60,65 @@ and CreateCompany are the only actions on the root URI level
             return Ok(company);
         }
 
-        //   /// <summary>
-        //   /// Creates a newly created company
-        //   /// </summary>
-        //   /// <param name="company"></param>
-        //   /// <returns>A newly created company</returns>
-        //   /// <response code="201">Returns the newly created item</response>
-        //   /// <response code="400">If the item is null</response>
-        //   /// <response code="422">If the model is invalid</response>
-        //   [HttpPost(Name = "CreateCompany")]
-        //   [ProducesResponseType(201)]
-        //   [ProducesResponseType(400)]
-        //   [ProducesResponseType(422)]
-        //   [ServiceFilter(typeof(ValidationFilterAttribute))]
-        //   public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
-        //   {
-        //        var createdCompany = await _service.CompanyService.CreateCompanyAsync(company);
-        //       return CreatedAtRoute("CompanyById", new { id = createdCompany.Id },
-        //       createdCompany);
-        //   }
+        /// <summary>
+        /// Creates a newly created company
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns>A newly created company</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+        /// <response code="422">If the model is invalid</response>
+        [HttpPost(Name = "CreateCompany")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(422)]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
+        {
+            var createdCompany = await _sender.Send(new CreateCompanyCommand(company));
 
-        //   [HttpGet("collection/({ids})", Name = "CompanyCollection")]
-        //   public async Task<IActionResult> GetCompanyCollection
-        //           ([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
-        //   {
-        //       var companies = await _service.CompanyService.GetByIdsAsync(ids, trackChanges:
-        //       false);
-        //       return Ok(companies);
-        //   }
+            return CreatedAtRoute("CompanyById", new { id = createdCompany.Id },
+            createdCompany);
+        }
+        [HttpPut("{id:guid}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
+        {
+            await _sender.Send(new UpdateCompanyCommand(id, company, TrackChanges: true));
 
-        //   [HttpPost("collection")]
-        //   public async Task<IActionResult> CreateCompanyCollection
-        //   ([FromBody] IEnumerable<CompanyForCreationDto> companyCollection)
-        //   {
-        //       var result = await
-        //       _service.CompanyService.CreateCompanyCollectionAsync(companyCollection);
-        //       return CreatedAtRoute("CompanyCollection", new { result.ids },
-        //       result.companies);
-        //   }
-
-        //   [HttpDelete("{id:guid}")]
-        //   public async Task<IActionResult> DeleteCompany(Guid id)
-        //   {
-        //       await _service.CompanyService.DeleteCompanyAsync(id, trackChanges: false);
-        //       return NoContent();
-        //   }
+            return NoContent();
+        }
 
 
-        //   [HttpPut("{id:guid}")]
-        //   [ServiceFilter(typeof(ValidationFilterAttribute))]
-        //   public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
-        //   {
-        //       await _service.CompanyService.UpdateCompanyAsync(id, company, trackChanges:
-        //       true);
-        //       return NoContent();
-        //   }
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteCompany(Guid id)
+        {
+            await _sender.Send(new DeleteCompanyCommand(id, TrackChanges: false));
+            return NoContent();
+        }
 
-        //   [HttpOptions]
-        //   public IActionResult GetCompaniesOptions()
-        //   {
-        //       Response.Headers.Add("Allow", "GET, OPTIONS, POST");
-        //       return Ok();
-        //   }
+        [HttpGet("collection/({ids})", Name = "CompanyCollection")]
+        public async Task<IActionResult> GetCompanyCollection
+                ([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
+        {
+            var companies = await _sender.Send(new GetCompaniesByIdsQuery(ids, TrackChanges: false));
+            return Ok(companies);
+        }
+
+        [HttpPost("collection")]
+        public async Task<IActionResult> CreateCompanyCollection
+        ([FromBody] IEnumerable<CompanyForCreationDto> companyCollection)
+        {
+            var result = await _sender.Send(new CreateCompanyCollectionCommand(companyCollection));
+            return CreatedAtRoute("CompanyCollection", new { result.ids },
+            result.companies);
+        }
+
+        [HttpOptions]
+        public IActionResult GetCompaniesOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            return Ok();
+        }
     }
 }
