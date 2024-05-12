@@ -79,7 +79,7 @@ and CreateCompany are the only actions on the root URI level
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(422)]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        //   [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
         {
             var createdCompany = await _sender.Send(new CreateCompanyCommand(company));

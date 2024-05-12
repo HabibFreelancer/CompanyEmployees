@@ -14,6 +14,8 @@ using Shared.DataTransferObjects;
 using static System.Net.Mime.MediaTypeNames;
 using MediatR;
 using System.Reflection;
+using FluentValidation;
+using Application.Behaviors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,12 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));/*add the service IMapper mapper in IOC */
+/*IPipelineBehavior using for the Influent validation class*/
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>),
+typeof(ValidationBehavior<,>));
+
+builder.Services.AddValidatorsFromAssembly(typeof(Application.AssemblyReference).Assembly);
+
 builder.Services.AddScoped<IDataShaper<EmployeeDto>, DataShaper<EmployeeDto>>();
 
 /*suppressing a default model state validation that is
