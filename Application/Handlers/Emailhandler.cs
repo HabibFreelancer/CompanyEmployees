@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers
 {
-    internal sealed class EmailHandler : INotificationHandler<CompanyDeletedNotification>
+    internal sealed class EmailHandler : INotificationHandler<CompanyDeletedNotification>, INotificationHandler<EmployeeDeletedNotification>
     {
         private readonly ILoggerManager _logger;
         public EmailHandler(ILoggerManager logger) => _logger = logger;
@@ -20,5 +20,14 @@ namespace Application.Handlers
             await Task.CompletedTask;
 
         }
+
+        public async Task Handle(EmployeeDeletedNotification notification,
+        CancellationToken cancellationToken)
+        {
+            _logger.LogWarn($"Delete action for the employee with id: {notification.id} has occurred.");
+            await Task.CompletedTask;
+
+        }
+
     }
 }
