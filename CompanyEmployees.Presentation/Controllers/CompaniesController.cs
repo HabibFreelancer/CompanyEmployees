@@ -3,7 +3,6 @@ using Application.Notifications;
 using Application.Queries;
 using CompanyEmployees.Presentation.ActionFilters;
 using CompanyEmployees.Presentation.ModelBinders;
-using Entities.Responses;
 using Marvin.Cache.Headers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
