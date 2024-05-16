@@ -1,5 +1,4 @@
 ﻿using Application.Queries;
-using CompanyEmployees.Presentation.ApiBaseResponseExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
