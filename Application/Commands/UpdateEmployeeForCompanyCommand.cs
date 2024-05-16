@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Application.Commands
 {
-    public sealed record UpdateEmployeeForCompanyCommand(Guid companyId, Guid id, EmployeeForUpdateDto employee, bool compTrackChanges, bool empTrackChanges) : IRequest<Unit>;
+    public sealed record UpdateEmployeeForCompanyCommand(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate, bool compTrackChanges, bool empTrackChanges) : IRequest<Unit>;
    
 }
