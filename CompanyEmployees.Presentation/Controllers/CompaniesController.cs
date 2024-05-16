@@ -81,7 +81,6 @@ and CreateCompany are the only actions on the root URI level
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(422)]
-        //   [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
         {
             var createdCompany = await _sender.Send(new CreateCompanyCommand(company));
@@ -96,7 +95,6 @@ and CreateCompany are the only actions on the root URI level
         /// <param name="company">Company Object to updated</param>
         /// <returns>No Content</returns>
         [HttpPut("{id:guid}")]
-        //[ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
         {
             await _sender.Send(new UpdateCompanyCommand(id, company, TrackChanges: true));

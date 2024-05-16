@@ -62,6 +62,22 @@
             </summary>
             <returns>List fo request Headers</returns>
         </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.GetEmployeesForCompanyAsync(System.Guid,Shared.RequestFeatures.EmployeeParameters)">
+            <summary>
+            Gets the list of all employee by company
+            </summary>
+            <param name="companyId">Id company</param>
+            <param name="employeeParameters"> Filter parameters (max Age, min Age , search term ....)</param>
+            <returns>The employee list with paging</returns>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.GetEmployeeForCompanyAsync(System.Guid,System.Guid)">
+            <summary>
+            Get empoyee for company by id company and id Employee
+            </summary>
+            <param name="companyId">Id company</param>
+            <param name="id">Id employee</param>
+            <returns>The employee objet dto</returns>
+        </member>
         <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.CreateEmployeeForCompanyAsync(System.Guid,Shared.DataTransferObjects.EmployeeForCreationDto)">
             <summary>
             Creates a newly created employee
@@ -72,6 +88,32 @@
             <response code="201">Returns the newly created item</response>
             <response code="400">If the item is null</response>
             <response code="422">If the model is invalid</response>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.UpdateEmployeeForCompanyAsync(System.Guid,System.Guid,Shared.DataTransferObjects.EmployeeForUpdateDto)">
+            <summary>
+            Update an existing employee
+            </summary>
+            <param name="companyId">Id company</param>
+            <param name="id">Id employee</param>
+            <param name="employee">Employee object to update</param>
+            <returns>No Content</returns>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.DeleteEmployeeForCompanyAsync(System.Guid,System.Guid)">
+            <summary>
+            Delete existing company
+            </summary>
+            <param name="companyId">Id company</param>
+            <param name="id">Id employee</param>
+            <returns>No Content</returns>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.PartiallyUpdateEmployeeForCompanyAsync(System.Guid,System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Shared.DataTransferObjects.EmployeeForUpdateDto})">
+            <summary>
+            Partially Update employee for company
+            </summary>
+            <param name="companyId">Id company</param>
+            <param name="id">Id employee</param>
+            <param name="patchDoc">Object contains properties to update or to remove</param>
+            <returns>No Content</returns>
         </member>
     </members>
 </doc>
