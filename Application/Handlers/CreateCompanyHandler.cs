@@ -13,8 +13,8 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers
 {
-    internal sealed class CreateCompanyHandler : IRequestHandler<CreateCompanyCommand,
-  CompanyDto>
+    internal sealed class CreateCompanyHandler : IRequestHandler<CreateCompanyCommand, CompanyDto>
+                                                  , IRequestHandler<CreateCompanyCollectionCommand, (IEnumerable<CompanyDto> companies, string ids)>
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;

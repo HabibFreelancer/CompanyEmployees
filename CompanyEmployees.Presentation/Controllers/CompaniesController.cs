@@ -54,7 +54,11 @@ and CreateCompany are the only actions on the root URI level
             return Ok(companies);
         }
 
-
+        /// <summary>
+        /// Get company By Id
+        /// </summary>
+        /// <param name="id">The company Object</param>
+        /// <returns></returns>
         [HttpGet("{id:guid}", Name = "CompanyById")]
         /*Response Cache attribute => duration 60s */
         /*[ResponseCache(Duration = 60)] Marvin.Cache.Headers will provide for us
@@ -70,7 +74,7 @@ and CreateCompany are the only actions on the root URI level
         /// <summary>
         /// Creates a newly created company
         /// </summary>
-        /// <param name="company"></param>
+        /// <param name="company">Company Object For Creation</param>
         /// <returns>A newly created company</returns>
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response>
@@ -87,8 +91,14 @@ and CreateCompany are the only actions on the root URI level
             return CreatedAtRoute("CompanyById", new { id = createdCompany.Id },
             createdCompany);
         }
+        /// <summary>
+        /// Update an existing company
+        /// </summary>
+        /// <param name="id">Id company to updated</param>
+        /// <param name="company">Company Object to updated</param>
+        /// <returns>No Content</returns>
         [HttpPut("{id:guid}")]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        //[ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
         {
             await _sender.Send(new UpdateCompanyCommand(id, company, TrackChanges: true));
@@ -96,7 +106,11 @@ and CreateCompany are the only actions on the root URI level
             return NoContent();
         }
 
-
+        /// <summary>
+        /// Delete Existing company
+        /// </summary>
+        /// <param name="id">Id company to deleted</param>
+        /// <returns>No Content</returns>
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteCompany(Guid id)
         {
@@ -104,7 +118,12 @@ and CreateCompany are the only actions on the root URI level
             false));
             return NoContent();
         }
-
+        //Example of calling url : https://localhost:7050/api/companies/collection/(3d490a70-94ce-4d15-9494-5248280c2ce3,7a6be658-b490-4a9c-6f29-08dc61907ab2)
+        /// <summary>
+        /// Get collection of company by ids
+        /// </summary>
+        /// <param name="ids">Ids of companies to get its </param>
+        /// <returns>List of the object company</returns>
         [HttpGet("collection/({ids})", Name = "CompanyCollection")]
         public async Task<IActionResult> GetCompanyCollection
                 ([ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
@@ -112,7 +131,11 @@ and CreateCompany are the only actions on the root URI level
             var companies = await _sender.Send(new GetCompaniesByIdsQuery(ids, TrackChanges: false));
             return Ok(companies);
         }
-
+        /// <summary>
+        /// Create a collection of company
+        /// </summary>
+        /// <param name="companyCollection">Collection of company to created</param>
+        /// <returns>Ids created companies and list of created companies</returns>
         [HttpPost("collection")]
         public async Task<IActionResult> CreateCompanyCollection
         ([FromBody] IEnumerable<CompanyForCreationDto> companyCollection)
@@ -121,7 +144,10 @@ and CreateCompany are the only actions on the root URI level
             return CreatedAtRoute("CompanyCollection", new { result.ids },
             result.companies);
         }
-
+        /// <summary>
+        /// Get the different Request Headers allowed
+        /// </summary>
+        /// <returns>List fo request Headers</returns>
         [HttpOptions]
         public IActionResult GetCompaniesOptions()
         {

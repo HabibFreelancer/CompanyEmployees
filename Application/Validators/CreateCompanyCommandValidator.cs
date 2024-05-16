@@ -19,15 +19,17 @@ AbstractValidator<CreateCompanyCommand>
 
 
         }
-
-        public override ValidationResult
-Validate(ValidationContext<CreateCompanyCommand> context)
-        {
-            return context.InstanceToValidate.Company is null
-            ? new ValidationResult(new[] { new
-ValidationFailure("CompanyForCreationDto",
-"CompanyForCreationDto object is null") })
-            : base.Validate(context);
-        }
+        /* Validating null Object :Our recommendation is
+to use 422 only for the validation errors, and 400 if the request body is
+null.*/
+//        public override ValidationResult
+//Validate(ValidationContext<CreateCompanyCommand> context)
+//        {
+//            return context.InstanceToValidate.Company is null
+//            ? new ValidationResult(new[] { new
+//ValidationFailure("CompanyForCreationDto",
+//"CompanyForCreationDto object is null") })
+//            : base.Validate(context);
+//        }
     }
 }

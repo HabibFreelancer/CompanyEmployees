@@ -16,8 +16,9 @@ namespace Application.Handlers
 IEnumerable<Product>>. This means this class will
 handle GetCompaniesQuery, in this case, returning the list of companies.
     We also inject the repository through the constructor*/
-    internal sealed class GetCompaniesHandler : IRequestHandler<GetCompaniesQuery,
-IEnumerable<CompanyDto>>
+    internal sealed class GetCompaniesHandler : IRequestHandler<GetCompaniesQuery, IEnumerable<CompanyDto>>
+                                                 , IRequestHandler<GetCompanyQuery, CompanyDto>
+                                                    , IRequestHandler<GetCompaniesByIdsQuery, IEnumerable<CompanyDto>>
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;

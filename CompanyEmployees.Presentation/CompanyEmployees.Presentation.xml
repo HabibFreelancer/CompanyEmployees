@@ -10,15 +10,57 @@
             </summary>
             <returns>The companies list</returns>
         </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.GetCompany(System.Guid)">
+            <summary>
+            Get company By Id
+            </summary>
+            <param name="id">The company Object</param>
+            <returns></returns>
+        </member>
         <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.CreateCompany(Shared.DataTransferObjects.CompanyForCreationDto)">
             <summary>
             Creates a newly created company
             </summary>
-            <param name="company"></param>
+            <param name="company">Company Object For Creation</param>
             <returns>A newly created company</returns>
             <response code="201">Returns the newly created item</response>
             <response code="400">If the item is null</response>
             <response code="422">If the model is invalid</response>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.UpdateCompany(System.Guid,Shared.DataTransferObjects.CompanyForUpdateDto)">
+            <summary>
+            Update an existing company
+            </summary>
+            <param name="id">Id company to updated</param>
+            <param name="company">Company Object to updated</param>
+            <returns>No Content</returns>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.DeleteCompany(System.Guid)">
+            <summary>
+            Delete Existing company
+            </summary>
+            <param name="id">Id company to deleted</param>
+            <returns>No Content</returns>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.GetCompanyCollection(System.Collections.Generic.IEnumerable{System.Guid})">
+            <summary>
+            Get collection of company by ids
+            </summary>
+            <param name="ids">Ids of companies to get its </param>
+            <returns>List of the object company</returns>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.CreateCompanyCollection(System.Collections.Generic.IEnumerable{Shared.DataTransferObjects.CompanyForCreationDto})">
+            <summary>
+            Create a collection of company
+            </summary>
+            <param name="companyCollection">Collection of company to created</param>
+            <returns>Ids created companies and list of created companies</returns>
+        </member>
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.GetCompaniesOptions">
+            <summary>
+            Get the different Request Headers allowed
+            </summary>
+            <returns>List fo request Headers</returns>
         </member>
         <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.CreateEmployeeForCompanyAsync(System.Guid,Shared.DataTransferObjects.EmployeeForCreationDto)">
             <summary>
