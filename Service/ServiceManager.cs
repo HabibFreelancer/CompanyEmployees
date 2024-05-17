@@ -17,7 +17,6 @@ namespace Service
 {
     public sealed class ServiceManager : IServiceManager
     {
-        private readonly Lazy<IEmployeeService> _employeeService;
         private readonly Lazy<IAuthenticationService> _authenticationService;
 
         public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager
@@ -26,14 +25,13 @@ namespace Service
         IOptions<JwtConfiguration> configuration)
         {
           
-            _employeeService = new Lazy<IEmployeeService>(() => new
-            EmployeeService(repositoryManager, logger, mapper, dataShaper));
+          
             _authenticationService = new Lazy<IAuthenticationService>(() =>
                             new AuthenticationService(logger, mapper, userManager, configuration));
 
         }
       
-        public IEmployeeService EmployeeService => _employeeService.Value;
+        
         public IAuthenticationService AuthenticationService => _authenticationService.Value;
 
     }
