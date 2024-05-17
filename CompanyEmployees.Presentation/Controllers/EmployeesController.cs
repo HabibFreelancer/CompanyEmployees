@@ -44,13 +44,14 @@ attribute applied*/
                 notifications.*/
             _publisher = publisher;
         }
+        /*Example calling URL : https://localhost:7050/api/companies/c9d4c053-49b6-410c-bc78-2d54a9991870/employees?pageNumber=2&pageSize=2*/
         /// <summary>
         /// Gets the list of all employee by company
         /// </summary>
         /// <param name="companyId">Id company</param>
         /// <param name="employeeParameters"> Filter parameters (max Age, min Age , search term ....)</param>
         /// <returns>The employee list with paging</returns>
-        [HttpHead] /*Head HTTP Request*/
+        [HttpGet] /*Head HTTP Request*/
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetEmployeesForCompanyAsync(Guid companyId,
             [FromQuery] EmployeeParameters employeeParameters)
@@ -60,6 +61,7 @@ attribute applied*/
                         JsonSerializer.Serialize(pagedResult.metaData));
             return Ok(pagedResult.employees);
         }
+        /*Example calling URL : https://localhost:7050/api/companies/c9d4c053-49b6-410c-bc78-2d54a9991870/employees/6df55ff3-6437-4f30-cc89-08dc605ba8b0*/
         /// <summary>
         /// Get empoyee for company by id company and id Employee
         /// </summary>
@@ -104,7 +106,7 @@ attribute applied*/
             },
             employeeToReturn);
         }
-
+        /*Example calling URL : https://localhost:7050/api/companies/c9d4c053-49b6-410c-bc78-2d54a9991870/employees/4f18abe8-3bff-4fd9-110f-08dc767b0fde*/
         /// <summary>
         /// Update an existing employee
         /// </summary>
@@ -120,7 +122,7 @@ attribute applied*/
             compTrackChanges: false, empTrackChanges: true));
             return NoContent();
         }
-
+        /*Example calling URL : https://localhost:7050/api/companies/c9d4c053-49b6-410c-bc78-2d54a9991870/employees/4f18abe8-3bff-4fd9-110f-08dc767b0fde*/
         /// <summary>
         /// Delete existing company
         /// </summary>
@@ -134,7 +136,17 @@ attribute applied*/
             false));
             return NoContent();
         }
-        
+        /*Example Calling URL : https://localhost:7050/api/companies/c9d4c053-49b6-410c-bc78-2d54a9991870/employees/f697b63b-70db-4f25-110e-08dc767b0fde*/
+        /*We Should Pass Content-Type : application/json-patch+json in Request Header */
+        /* Example of passing object :
+         * [
+             {
+                 "op": "replace",
+                 "path": "/name",
+                 "value": "new name replace "
+             }
+            ]
+         */
         /// <summary>
         /// Partially Update employee for company
         /// </summary>

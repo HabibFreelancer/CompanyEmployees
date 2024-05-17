@@ -7,6 +7,7 @@ using MediatR;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 namespace Application.Handlers
 {
     internal sealed class PartiallyUpdateEmployeeForCompanyHandler : IRequestHandler<PartiallyUpdateEmployeeForCompanyCommand, Unit> 
+         , IRequestHandler<UpdateEmployeeForCompanyCommand, Unit>
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
@@ -33,6 +35,15 @@ namespace Application.Handlers
             return Unit.Value;
 
 
+        }
+
+        public async Task<Unit> Handle(UpdateEmployeeForCompanyCommand request, CancellationToken cancellationToken)
+        {
+            await CheckIfCompanyExists(request.companyId, request.compTrackChanges);
+            var employeeEntity = await GetEmployeeForCompanyAndCheckIfItExists(request.companyId, request.id, request.empTrackChanges);
+            _mapper.Map(request.employeeForUpdate, employeeEntity);
+            await _repository.SaveAsync();
+            return Unit.Value;
         }
 
         private async Task<(EmployeeForUpdateDto employeeToPatch, Employee employeeEntity)>
@@ -72,6 +83,6 @@ namespace Application.Handlers
             await _repository.SaveAsync();
         }
 
-
+        
     }
 }

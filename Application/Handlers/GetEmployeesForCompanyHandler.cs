@@ -15,8 +15,9 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers
 {
-    internal sealed class GetEmployeesForCompanyHandler : IRequestHandler<GetEmployeesForCompanyQuery, (IEnumerable<ExpandoObject> employees, MetaData metaData)>
-
+    internal sealed class GetEmployeesForCompanyHandler :
+        IRequestHandler<GetEmployeesForCompanyQuery, (IEnumerable<ExpandoObject> employees, MetaData metaData)>,
+        IRequestHandler<GetEmployeeForCompanyByIdQuery, EmployeeDto>
     {
 
        
