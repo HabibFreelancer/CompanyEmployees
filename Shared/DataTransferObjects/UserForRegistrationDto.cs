@@ -7,16 +7,10 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record UserForRegistrationDto
-    {
-        public string? FirstName { get; init; }
-        public string? LastName { get; init; }
-        [Required(ErrorMessage = "Username is required")]
-        public string? UserName { get; init; }
-        [Required(ErrorMessage = "Password is required")]
-        public string? Password { get; init; }
-        public string? Email { get; init; }
-        public string? PhoneNumber { get; init; }
-        public ICollection<string>? Roles { get; init; }
-    }
+   
+
+    public record UserForRegistrationDto(string? FirstName, string? LastName, string? UserName, string? Password, string? Email , string? PhoneNumber,
+        ICollection<string>? Roles);
+
+
 }
