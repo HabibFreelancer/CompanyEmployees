@@ -10,6 +10,6 @@ namespace Application.Commands
 {
   
 
-    public sealed record ValidateUserCommand(UserForAuthenticationDto userForAuth) : IRequest<bool>;
+    public sealed record ValidateUserCommand(bool populateExp,UserForAuthenticationDto userForAuth) : IRequest<(bool, TokenDto?)>;
 
 }

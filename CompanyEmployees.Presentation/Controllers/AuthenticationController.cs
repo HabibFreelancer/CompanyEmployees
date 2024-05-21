@@ -1,6 +1,7 @@
 ﻿using Application.Commands;
 using Application.Queries;
 using CompanyEmployees.Presentation.ActionFilters;
+using Entities.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;
@@ -17,6 +18,7 @@ namespace CompanyEmployees.Presentation.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly ISender _sender;
+        private User? _user;
         public AuthenticationController(ISender sender) => _sender = sender;
 
         [HttpPost]
@@ -38,10 +40,11 @@ namespace CompanyEmployees.Presentation.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
         {
-            if (!await _sender.Send(new ValidateUserCommand(user)))
+
+            var result = await _sender.Send(new ValidateUserCommand(populateExp: true,user)) ;
+            if (!result.Item1)
                 return Unauthorized();
-            var tokenDto = await _sender.Send(new CreateTokenCommand(populateExp: true));
-            return Ok(tokenDto);
+            return Ok(result.Item2);
         }
 
     }

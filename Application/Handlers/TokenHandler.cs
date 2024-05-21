@@ -24,6 +24,7 @@ namespace Application.Handlers
 {
 
     internal sealed class TokenHandler : IRequestHandler<CreateTokenCommand, TokenDto>, IRequestHandler<RefreshTokenCommand, TokenDto>
+                                            , IRequestHandler<ValidateUserCommand, (bool, TokenDto?)>
     {
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
@@ -148,6 +149,24 @@ List<Claim> claims)
                 throw new RefreshTokenBadRequest();
             _user = user;
             return await CreateToken(populateExp: false);
+        }
+
+        public async Task<(bool, TokenDto?)> Handle(ValidateUserCommand request, CancellationToken cancellationToken)
+        {
+            _user = await _userManager.FindByNameAsync(request.userForAuth.UserName);
+            var result = (_user != null && await _userManager.CheckPasswordAsync(_user,
+            request.userForAuth.Password));
+            if (!result)
+            {
+                _logger.LogWarn($" ValidateUser : Authentication failed. Wrong user  name or password.");
+                return (false, null);
+            }
+            else
+            {
+                var CreatedToken = await CreateToken(request.populateExp);
+                return (true, CreatedToken);
+            }
+
         }
     }
 }
