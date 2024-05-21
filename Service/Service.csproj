@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataShaping\DataShaper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
@@ -15,6 +19,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CompanyEmployees\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\..\CompanyEmployees\Service.Contracts\Service.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataShaping\" />
   </ItemGroup>
 
 </Project>

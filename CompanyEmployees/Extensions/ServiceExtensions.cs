@@ -1,7 +1,6 @@
 ﻿using Contracts;
 using LoggerService;
 using Repository;
-using Service;
 using Microsoft.EntityFrameworkCore;
 using CompanyEmployees.CustomFormatter;
 using Microsoft.AspNetCore.Mvc.Formatters;
