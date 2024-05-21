@@ -7,7 +7,6 @@ using Marvin.Cache.Headers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;

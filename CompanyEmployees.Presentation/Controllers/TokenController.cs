@@ -3,7 +3,6 @@ using Application.Queries;
 using CompanyEmployees.Presentation.ActionFilters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;

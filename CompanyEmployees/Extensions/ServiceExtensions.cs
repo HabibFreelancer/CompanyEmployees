@@ -1,7 +1,6 @@
 ﻿using Contracts;
 using LoggerService;
 using Repository;
-using Service.Contracts;
 using Service;
 using Microsoft.EntityFrameworkCore;
 using CompanyEmployees.CustomFormatter;
@@ -61,9 +60,7 @@ register them inside the dependency injection container*/
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
 services.AddScoped<IRepositoryManager, RepositoryManager>();
 
-        public static void ConfigureServiceManager(this IServiceCollection services) =>
-services.AddScoped<IServiceManager, ServiceManager>();
-
+        
         /*RepositoryManager service
 registration, which happens at runtime, and during that registration, we
 must have RepositoryContext registered as well in the runtime, so we
