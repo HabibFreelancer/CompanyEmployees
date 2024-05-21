@@ -21,7 +21,6 @@ namespace CompanyEmployees.Presentation.Controllers
         public TokenController(ISender sender) => _sender = sender;
 
         [HttpPost("refresh")]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
         {
             var tokenDtoToReturn = await _sender.Send(new RefreshTokenCommand(tokenDto));

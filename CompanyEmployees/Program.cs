@@ -44,8 +44,6 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.SuppressModelStateInvalidFilter = true;
 });
 
-/*register action filter to validation object in put and post method */
-builder.Services.AddScoped<ValidationFilterAttribute>();
 
 /*register action filter to validate media type */
 builder.Services.AddScoped<ValidateMediaTypeAttribute>();
