@@ -23,7 +23,7 @@ using System.IdentityModel.Tokens.Jwt;
 namespace Application.Handlers
 {
 
-    internal sealed class TokenHandler : IRequestHandler<CreateTokenCommand, TokenDto>, IRequestHandler<RefreshTokenCommand, TokenDto>
+    internal sealed class TokenHandler : IRequestHandler<RefreshTokenCommand, TokenDto>
                                             , IRequestHandler<ValidateUserCommand, (bool, TokenDto?)>
     {
         private readonly ILoggerManager _logger;
@@ -43,19 +43,7 @@ namespace Application.Handlers
             _jwtConfiguration = _configuration.Value;
         }
 
-        public async Task<TokenDto> Handle(CreateTokenCommand request, CancellationToken cancellationToken)
-        {
-            var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims();
-            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
-            var refreshToken = GenerateRefreshToken();
-            _user.RefreshToken = refreshToken;
-            if (request.populateExp)
-                _user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
-            await _userManager.UpdateAsync(_user);
-            var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            return new TokenDto(accessToken, refreshToken);
-        }
+       
         public async Task<TokenDto> CreateToken(bool populateExp)
         {
             var signingCredentials = GetSigningCredentials();
