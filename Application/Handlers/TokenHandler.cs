@@ -29,7 +29,6 @@ namespace Application.Handlers
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly IOptions<JwtConfiguration> _configuration;
         private User? _user;
         private readonly JwtConfiguration _jwtConfiguration;
         public TokenHandler(ILoggerManager logger, IMapper mapper,
@@ -39,8 +38,7 @@ namespace Application.Handlers
             _logger = logger;
             _mapper = mapper;
             _userManager = userManager;
-            _configuration = configuration;
-            _jwtConfiguration = _configuration.Value;
+            _jwtConfiguration = configuration.Value;
         }
 
        

@@ -126,11 +126,11 @@ properties to initially configure versioning*/
 
         /*Adding Cache-Store Service  */
         public static void ConfigureResponseCaching(this IServiceCollection services) =>
-services.AddResponseCaching();
+        services.AddResponseCaching();
 
         /*Add http cache header 
          Example of http cache header : Cache-Control,
-Expires, Etag, and Last-Modified
+E       xpires, Etag, and Last-Modified
          */
         public static void ConfigureHttpCacheHeaders(this IServiceCollection services) =>
 services.AddHttpCacheHeaders(

@@ -4,6 +4,10 @@ using Repository;
 
 namespace CompanyEmployees.ContextFactory
 {
+    /*With the RepositoryContextFactory class, which implements the
+IDesignTimeDbContextFactory interface, we have registered our
+RepositoryContext class at design time. This helps us find the
+RepositoryContext class in another project while executing migrations*/
     public class RepositoryContextFactory : IDesignTimeDbContextFactory<RepositoryContext>
     {
         public RepositoryContext CreateDbContext(string[] args)
