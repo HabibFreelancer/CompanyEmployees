@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Microsoft.Extensions.Logging;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,17 @@ using System.Threading.Tasks;
 
 namespace LoggerService
 {
-    public class LoggerManager : ILoggerManager
+    public class LoggerManager<T> : ILoggerManager<T>
     {
-        private static ILogger logger = LogManager.GetCurrentClassLogger();
-        public LoggerManager()
+        private readonly ILogger<T> _logger;
+        public LoggerManager(ILoggerFactory loggerFactory)
         {
+            _logger = loggerFactory.CreateLogger<T>();
         }
-        public void LogDebug(string message) => logger.Debug(message);
-        public void LogError(string message) => logger.Error(message);
-        public void LogInfo(string message) => logger.Info(message);
-        public void LogWarn(string message) => logger.Warn(message);
+        public void LogDebug(string message, params object[] args) => _logger.LogDebug(message, args);
+        public void LogError(string message, params object[] args) => _logger.LogError(message, args);
+        public void LogInfo(string message, params object[] args) => _logger.LogInformation(message, args);
+        public void LogWarn(string message, params object[] args) => _logger.LogWarning(message, args);
     }
 
 }

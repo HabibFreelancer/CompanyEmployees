@@ -13,6 +13,7 @@ using Shared.DataTransferObjects;
 using FluentValidation;
 using Application.Behaviors;
 using CompanyEmployees.Reflection;
+using Entities.ErrorModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,7 +115,7 @@ extract the ILoggerManager service after the var app =
 builder.Build() code line because the Build method builds the
 WebApplication and registers all the services added with IOC
  */
-var logger = app.Services.GetRequiredService<ILoggerManager>();
+var logger = app.Services.GetRequiredService<ILoggerManager<ErrorDetails>>();
 app.ConfigureExceptionHandler(logger);
 
 

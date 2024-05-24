@@ -11,7 +11,7 @@ namespace CompanyEmployees.Extensions
     public static class ExceptionMiddlewareExtensions
     {
         public static void ConfigureExceptionHandler(this WebApplication app,
-        ILoggerManager logger)
+        ILoggerManager<ErrorDetails> logger)
         {
             /*UseExceptionHandler is a built-in middleware*/
             app.UseExceptionHandler(appError =>

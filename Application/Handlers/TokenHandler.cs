@@ -26,12 +26,12 @@ namespace Application.Handlers
     internal sealed class TokenHandler : IRequestHandler<RefreshTokenCommand, TokenDto>
                                             , IRequestHandler<ValidateUserCommand, (bool, TokenDto?)>
     {
-        private readonly ILoggerManager _logger;
+        private readonly ILoggerManager<TokenHandler> _logger;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private User? _user;
         private readonly JwtConfiguration _jwtConfiguration;
-        public TokenHandler(ILoggerManager logger, IMapper mapper,
+        public TokenHandler(ILoggerManager<TokenHandler> logger, IMapper mapper,
         UserManager<User> userManager, IOptions<JwtConfiguration> configuration)
         {
 

@@ -53,7 +53,7 @@ add the following code to the ServiceExtensions class*/
 
         /*Inject The Logger Manager Service */
         public static void ConfigureLoggerService(this IServiceCollection services) =>
- services.AddSingleton<ILoggerManager, LoggerManager>();
+         services.AddScoped(typeof(ILoggerManager<>), typeof(LoggerManager<>));
 
         /*a repository manager class,
 which will create instances of repository user classes for us and then
@@ -61,7 +61,7 @@ register them inside the dependency injection container*/
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
 services.AddScoped<IRepositoryManager, RepositoryManager>();
 
-        
+
         /*RepositoryManager service
 registration, which happens at runtime, and during that registration, we
 must have RepositoryContext registered as well in the runtime, so we

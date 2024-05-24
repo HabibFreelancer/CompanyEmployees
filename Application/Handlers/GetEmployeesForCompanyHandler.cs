@@ -21,11 +21,11 @@ namespace Application.Handlers
     {
 
        
-        private readonly ILoggerManager _logger;
+        private readonly ILoggerManager<GetEmployeesForCompanyHandler> _logger;
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
         private readonly IDataShaper<EmployeeDto> _dataShaper;
-        public GetEmployeesForCompanyHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager
+        public GetEmployeesForCompanyHandler(IRepositoryManager repository, IMapper mapper, ILoggerManager<GetEmployeesForCompanyHandler>
         logger, IDataShaper<EmployeeDto> dataShaper)
         {
             _repository = repository;
