@@ -5,7 +5,8 @@ using System.Text;
 
 namespace CompanyEmployees.CustomFormatter
 {
-    /*its a custom outputFormatter to render csv format in the http response (Http Header => Accept => text/csv*/
+    /*its a custom outputFormatter to render csv format in the http response
+     * (Http Header => Accept => text/csv*/
     public class CsvOutputFormatter : TextOutputFormatter
     {
 
@@ -29,7 +30,8 @@ namespace CompanyEmployees.CustomFormatter
             }
             return false;
         }
-        public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+        public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, 
+            Encoding selectedEncoding)
         {
             var response = context.HttpContext.Response;
             var buffer = new StringBuilder();

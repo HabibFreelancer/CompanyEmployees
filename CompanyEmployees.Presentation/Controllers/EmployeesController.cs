@@ -50,7 +50,10 @@ attribute applied*/
         /// <param name="companyId">Id company</param>
         /// <param name="employeeParameters"> Filter parameters (max Age, min Age , search term ....)</param>
         /// <returns>The employee list with paging</returns>
-        [HttpGet] /*Head HTTP Request*/
+        [HttpGet]
+        [HttpHead] /*Head HTTP Request :The Head is identical to Get but without a response body. This type of request could be used to obtain information about validity, accessibility, and recent modifications of the resource.
+the Head request must return the same response as the Get request — just without the response body.
+*/
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetEmployeesForCompanyAsync(Guid companyId,
             [FromQuery] EmployeeParameters employeeParameters)
@@ -70,9 +73,10 @@ attribute applied*/
         [HttpGet("{id:guid}", Name = "GetEmployeeForCompany")]
         /*Response Cache attribute => duration 60s */
         /*[ResponseCache(Duration = 60)] Marvin.Cache.Headers will provide for us
-     * response cache attribute*/
+        * response cache attribute*/
         [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
         [HttpCacheValidation(MustRevalidate = false)]
+        [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
         public async Task<IActionResult> GetEmployeeForCompanyAsync(Guid companyId, Guid id)
         {
             var employee = await _sender.Send(new GetEmployeeForCompanyByIdQuery(companyId, id, trackChanges: false));

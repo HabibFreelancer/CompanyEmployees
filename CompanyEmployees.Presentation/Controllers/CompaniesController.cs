@@ -139,6 +139,16 @@ and CreateCompany are the only actions on the root URI level
             return CreatedAtRoute("CompanyCollection", new { result.ids },
             result.companies);
         }
+
+        /*The Options request can be used to request information on the
+communication options available upon a certain URI. It allows consumers
+to determine the options or different requirements associated with a
+resource. Additionally, it allows us to check the capabilities of a server
+without forcing action to retrieve a resource.
+Basically, Options should inform us whether we can Get a resource or
+execute any other action (POST, PUT, or DELETE). All of the options
+should be returned in the Allow header of the response as a commaseparated list of methods*/
+
         /// <summary>
         /// Get the different Request Headers allowed
         /// </summary>

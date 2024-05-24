@@ -88,7 +88,7 @@ response*/
                 if (systemTextJsonOutputFormatter != null)
                 {
                     systemTextJsonOutputFormatter.SupportedMediaTypes
-                    .Add("application/vnd.codemaze.hateoas+json");
+                    .Add("application/vnd.codemaze.hateoas+json");/*What we want to do is to enable links in our response only if it is explicitly asked for*/
                     systemTextJsonOutputFormatter.SupportedMediaTypes
                     .Add("application/vnd.codemaze.apiroot+json");/*For the GetRoot*/
                 }
@@ -98,7 +98,7 @@ response*/
                 if (xmlOutputFormatter != null)
                 {
                     xmlOutputFormatter.SupportedMediaTypes
-                    .Add("application/vnd.codemaze.hateoas+xml");
+                    .Add("application/vnd.codemaze.hateoas+xml");/*What we want to do is to enable links in our response only if it is explicitly asked for*/
                     xmlOutputFormatter.SupportedMediaTypes
                     .Add("application/vnd.codemaze.apiroot+xml");/*For the GetRoot*/
                 }

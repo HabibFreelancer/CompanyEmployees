@@ -33,5 +33,14 @@ namespace Repository
 
         public void DeleteCompany(Company company) => Delete(company);
 
+        public async Task<Company> GetCompanyByNameAsync(string companyName, bool trackChanges) =>
+                           await FindByCondition(c => c.Name.Equals(companyName), trackChanges)
+                           .SingleOrDefaultAsync();
+
+        public async Task<bool> IsCompanyUnique(string companyName)
+        {
+            return await RepositoryContext.Companies.AnyAsync(c => c.Name.Equals(companyName));
+        }
+
     }
 }
