@@ -14,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Entities.ConfigurationModels;
 using Microsoft.OpenApi.Models;
+using Entities.ConfigurationModels.Email;
+using EmailService;
 
 namespace CompanyEmployees.Extensions
 {
@@ -244,6 +246,14 @@ services.Configure<JwtConfiguration>(configuration.GetSection("JwtSettings"));
 
             });
 
+        }
+
+        /*Configuration sending mail services SendGrid nuget */
+
+        public static void ConfigureInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailSender, EmailSender>();
         }
     }
 

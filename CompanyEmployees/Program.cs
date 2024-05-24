@@ -102,6 +102,9 @@ using the Application’s assembly as a parameter.*/
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Application.AssemblyReference).Assembly));
 
 
+/*plug  service mail Sender*/
+builder.Services.ConfigureInfrastructureServices(builder.Configuration);
+
 var app = builder.Build();
 
 /*extract the ILoggerManager service inside the logger
