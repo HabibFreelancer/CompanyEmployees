@@ -1,13 +1,13 @@
-﻿using Application.Commands;
-using Application.Notifications;
-using Application.Queries;
+﻿using Application.Features.Company.Notifications.Requests;
+using Application.Features.Company.Requests.Commands;
+using Application.Features.Company.Requests.Queries;
 using CompanyEmployees.Presentation.ActionFilters;
 using CompanyEmployees.Presentation.ModelBinders;
 using Marvin.Cache.Headers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DataTransferObjects;
+using Shared.DataTransferObjects.Company;
 using System;
 using System.Collections.Generic;
 using System.Linq;

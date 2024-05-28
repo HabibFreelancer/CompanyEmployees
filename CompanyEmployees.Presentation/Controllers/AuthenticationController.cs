@@ -1,10 +1,9 @@
-﻿using Application.Commands;
-using Application.Queries;
+﻿using Application.Features.User.Requests.Commands;
 using CompanyEmployees.Presentation.ActionFilters;
 using Entities.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DataTransferObjects;
+using Shared.DataTransferObjects.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

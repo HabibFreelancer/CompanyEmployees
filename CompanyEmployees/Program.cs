@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 using NLog;
-using Shared.DataTransferObjects;
 using FluentValidation;
 using Application.Behaviors;
 using CompanyEmployees.Reflection;
 using Entities.ErrorModel;
+using Shared.DataTransferObjects.Employee;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-﻿using Application.Queries;
+﻿using Application.Features.Company.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;

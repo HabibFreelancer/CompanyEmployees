@@ -17,7 +17,7 @@
             <param name="id">The company Object</param>
             <returns></returns>
         </member>
-        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.CreateCompany(Shared.DataTransferObjects.CompanyForCreationDto)">
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.CreateCompany(Shared.DataTransferObjects.Company.CompanyForCreationDto)">
             <summary>
             Creates a newly created company
             </summary>
@@ -27,7 +27,7 @@
             <response code="400">If the item is null</response>
             <response code="422">If the model is invalid</response>
         </member>
-        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.UpdateCompany(System.Guid,Shared.DataTransferObjects.CompanyForUpdateDto)">
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.UpdateCompany(System.Guid,Shared.DataTransferObjects.Company.CompanyForUpdateDto)">
             <summary>
             Update an existing company
             </summary>
@@ -49,7 +49,7 @@
             <param name="ids">Ids of companies to get its </param>
             <returns>List of the object company</returns>
         </member>
-        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.CreateCompanyCollection(System.Collections.Generic.IEnumerable{Shared.DataTransferObjects.CompanyForCreationDto})">
+        <member name="M:CompanyEmployees.Presentation.Controllers.CompaniesController.CreateCompanyCollection(System.Collections.Generic.IEnumerable{Shared.DataTransferObjects.Company.CompanyForCreationDto})">
             <summary>
             Create a collection of company
             </summary>
@@ -78,7 +78,7 @@
             <param name="id">Id employee</param>
             <returns>The employee objet dto</returns>
         </member>
-        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.CreateEmployeeForCompanyAsync(System.Guid,Shared.DataTransferObjects.EmployeeForCreationDto)">
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.CreateEmployeeForCompanyAsync(System.Guid,Shared.DataTransferObjects.Employee.EmployeeForCreationDto)">
             <summary>
             Creates a newly created employee
             </summary>
@@ -89,7 +89,7 @@
             <response code="400">If the item is null</response>
             <response code="422">If the model is invalid</response>
         </member>
-        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.UpdateEmployeeForCompanyAsync(System.Guid,System.Guid,Shared.DataTransferObjects.EmployeeForUpdateDto)">
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.UpdateEmployeeForCompanyAsync(System.Guid,System.Guid,Shared.DataTransferObjects.Employee.EmployeeForUpdateDto)">
             <summary>
             Update an existing employee
             </summary>
@@ -106,7 +106,7 @@
             <param name="id">Id employee</param>
             <returns>No Content</returns>
         </member>
-        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.PartiallyUpdateEmployeeForCompanyAsync(System.Guid,System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Shared.DataTransferObjects.EmployeeForUpdateDto})">
+        <member name="M:CompanyEmployees.Presentation.Controllers.EmployeesController.PartiallyUpdateEmployeeForCompanyAsync(System.Guid,System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Shared.DataTransferObjects.Employee.EmployeeForUpdateDto})">
             <summary>
             Partially Update employee for company
             </summary>

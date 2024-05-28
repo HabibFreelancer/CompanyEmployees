@@ -1,6 +1,6 @@
-﻿using Application.Commands;
-using Application.Notifications;
-using Application.Queries;
+﻿using Application.Features.Employee.Notifications.Commands;
+using Application.Features.Employee.Requests.Commands;
+using Application.Features.Employee.Requests.Queries;
 using CompanyEmployees.Presentation.ActionFilters;
 using Entities.Models;
 using Marvin.Cache.Headers;
@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DataTransferObjects;
+using Shared.DataTransferObjects.Employee;
 using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;

@@ -39,7 +39,7 @@ namespace Repository
 
         public async Task<bool> IsCompanyUnique(string companyName)
         {
-            return await RepositoryContext.Companies.AnyAsync(c => c.Name.Equals(companyName));
+            return await RepositoryContext.Companies.AnyAsync(c => c.Name.Equals(companyName)) ==false;
         }
 
     }

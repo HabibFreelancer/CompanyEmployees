@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
-using Shared.DataTransferObjects;
+using Shared.DataTransferObjects.Company;
 using System.Text;
 
 namespace CompanyEmployees.CustomFormatter
