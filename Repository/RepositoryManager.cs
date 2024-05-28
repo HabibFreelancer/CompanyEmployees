@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;

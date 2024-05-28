@@ -1,5 +1,5 @@
 ﻿using Application.Features.Company.Requests.Commands;
-using Contracts;
+using Contracts.Persistence;
 using FluentValidation;
 using FluentValidation.Results;
 using System;

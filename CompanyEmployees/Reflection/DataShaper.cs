@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Infrastructure;
 using System.Dynamic;
 using System.Reflection;
 

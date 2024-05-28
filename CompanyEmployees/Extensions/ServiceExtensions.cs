@@ -1,5 +1,4 @@
-﻿using Contracts;
-using LoggerService;
+﻿using LoggerService;
 using Repository;
 using Microsoft.EntityFrameworkCore;
 using CompanyEmployees.CustomFormatter;
@@ -16,6 +15,8 @@ using Entities.ConfigurationModels;
 using Microsoft.OpenApi.Models;
 using Entities.ConfigurationModels.Email;
 using EmailService;
+using Contracts.Infrastructure;
+using Contracts.Persistence;
 
 namespace CompanyEmployees.Extensions
 {

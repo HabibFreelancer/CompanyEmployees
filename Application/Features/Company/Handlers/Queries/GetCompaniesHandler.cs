@@ -1,6 +1,6 @@
 ﻿using Application.Features.Company.Requests.Queries;
 using AutoMapper;
-using Contracts;
+using Contracts.Persistence;
 using Entities.Exceptions;
 using MediatR;
 using Shared.DataTransferObjects.Company;

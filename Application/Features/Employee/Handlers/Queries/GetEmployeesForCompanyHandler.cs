@@ -1,6 +1,7 @@
 ﻿using Application.Features.Employee.Requests.Queries;
 using AutoMapper;
-using Contracts;
+using Contracts.Infrastructure;
+using Contracts.Persistence;
 using Entities.Exceptions;
 using MediatR;
 using Microsoft.Extensions.Logging;

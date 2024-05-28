@@ -1,6 +1,6 @@
 ﻿using Application.Features.Employee.Requests.Commands;
 using AutoMapper;
-using Contracts;
+using Contracts.Persistence;
 using Entities.Exceptions;
 using Entities.Models;
 using MediatR;

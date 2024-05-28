@@ -2,7 +2,6 @@
 
 using CompanyEmployees.Extensions;
 using CompanyEmployees.Presentation.ActionFilters;
-using Contracts;
 using MediatR;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +13,7 @@ using Application.Behaviors;
 using CompanyEmployees.Reflection;
 using Entities.ErrorModel;
 using Shared.DataTransferObjects.Employee;
+using Contracts.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

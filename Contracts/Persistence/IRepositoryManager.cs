@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts
+namespace Contracts.Persistence
 {
     public interface IRepositoryManager
     {
@@ -12,6 +12,6 @@ namespace Contracts
         IEmployeeRepository Employee { get; }
         Task SaveAsync();
 
-       
+
     }
 }

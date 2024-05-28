@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Persistence;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

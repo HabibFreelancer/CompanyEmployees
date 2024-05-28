@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Infrastructure;
 using Microsoft.Extensions.Logging;
 using NLog;
 using System;

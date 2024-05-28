@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Infrastructure;
 using Entities.ConfigurationModels.Email;
 using Microsoft.Extensions.Options;
 using SendGrid;

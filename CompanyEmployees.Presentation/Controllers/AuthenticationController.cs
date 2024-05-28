@@ -1,8 +1,7 @@
-﻿using Application.Features.User.Requests.Commands;
-using CompanyEmployees.Presentation.ActionFilters;
-using Entities.Models;
-using MediatR;
+﻿using CompanyEmployees.Presentation.ActionFilters;
+using Contracts.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shared.DataTransferObjects;
 using Shared.DataTransferObjects.User;
 using System;
 using System.Collections.Generic;
@@ -16,15 +15,14 @@ namespace CompanyEmployees.Presentation.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly ISender _sender;
-        private User? _user;
-        public AuthenticationController(ISender sender) => _sender = sender;
+        private readonly IAuthenticationService _authenticationService;
+        public AuthenticationController(IAuthenticationService authenticationService) => _authenticationService = authenticationService;
 
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
             var result = await
-             _sender.Send(new CreateUserForRegistrationCommand(userForRegistration));
+            _authenticationService.RegisterUser(userForRegistration);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -39,11 +37,10 @@ namespace CompanyEmployees.Presentation.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
         {
-
-            var result = await _sender.Send(new ValidateUserCommand(populateExp: true,user)) ;
-            if (!result.Item1)
+            if (!await _authenticationService.ValidateUser(user))
                 return Unauthorized();
-            return Ok(result.Item2);
+            var tokenDto = await _authenticationService.CreateToken(populateExp: true);
+            return Ok(tokenDto);
         }
 
     }

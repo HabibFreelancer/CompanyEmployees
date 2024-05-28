@@ -1,6 +1,6 @@
 ﻿using Application.Features.Employee.Notifications;
 using Application.Features.Employee.Notifications.Commands;
-using Contracts;
+using Contracts.Infrastructure;
 using Entities.ConfigurationModels.Email;
 using MediatR;
 using Microsoft.AspNetCore.Http;

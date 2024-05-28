@@ -1,5 +1,5 @@
 ﻿using Application.Features.Employee.Notifications.Commands;
-using Contracts;
+using Contracts.Persistence;
 using Entities.Exceptions;
 using Entities.Models;
 using MediatR;

@@ -1,5 +1,5 @@
 ﻿using Application.Features.Company.Notifications.Requests;
-using Contracts;
+using Contracts.Persistence;
 using Entities.Exceptions;
 using MediatR;
 using System;

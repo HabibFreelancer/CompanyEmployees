@@ -4,44 +4,66 @@ using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using Entities.Exceptions;
 using Entities.ConfigurationModels;
 using Microsoft.Extensions.Options;
-using MediatR;
-using System.IdentityModel.Tokens.Jwt;
-using Application.Features.User.Requests.Commands;
-using Application.Features.Auth.Requests.Commands;
+using Contracts.Identity;
+using Contracts.Infrastructure;
+using Shared.DataTransferObjects.User;
 using Shared.DataTransferObjects.Auth;
 
-namespace Application.Features.Auth.Handlers.Commands
+namespace Service
 {
-
-    internal sealed class TokenHandler : IRequestHandler<RefreshTokenCommand, TokenDto>
-                                            , IRequestHandler<ValidateUserCommand, (bool, TokenDto?)>
+    internal sealed class AuthenticationService : IAuthenticationService
     {
-        private readonly ILoggerManager<TokenHandler> _logger;
+        private readonly ILoggerManager<User> _logger;
         private readonly IMapper _mapper;
-        private readonly UserManager<Entities.Models.User> _userManager;
-        private Entities.Models.User? _user;
+        private readonly UserManager<User> _userManager;
+        private readonly IOptions<JwtConfiguration> _configuration;
+        private User? _user;
         private readonly JwtConfiguration _jwtConfiguration;
-        public TokenHandler(ILoggerManager<TokenHandler> logger, IMapper mapper,
-        UserManager<Entities.Models.User> userManager, IOptions<JwtConfiguration> configuration)
-        {
 
+        public AuthenticationService(ILoggerManager<User> logger, IMapper mapper,
+        UserManager<User> userManager, IOptions<JwtConfiguration> configuration)
+        {
             _logger = logger;
             _mapper = mapper;
             _userManager = userManager;
-            _jwtConfiguration = configuration.Value;
+            _configuration = configuration;
+            _jwtConfiguration = _configuration.Value;
         }
 
+        public async Task<IdentityResult> RegisterUser(UserForRegistrationDto
+            userForRegistration)
+        {
+            var user = _mapper.Map<User>(userForRegistration);
+            var result = await _userManager.CreateAsync(user,
+            userForRegistration.Password);
+            if (result.Succeeded)
+                await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
+            return result;
+        }
+
+        public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuth)
+        {
+            _user = await _userManager.FindByNameAsync(userForAuth.UserName);
+            var result = (_user != null && await _userManager.CheckPasswordAsync(_user,
+            userForAuth.Password));
+            if (!result)
+                _logger.LogWarn($"{nameof(ValidateUser)}: Authentication failed. Wrong user  name or password.");
+            return result;
+        }
 
         public async Task<TokenDto> CreateToken(bool populateExp)
         {
@@ -62,7 +84,6 @@ namespace Application.Features.Auth.Handlers.Commands
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
-
         private async Task<List<Claim>> GetClaims()
         {
             var claims = new List<Claim>
@@ -76,7 +97,6 @@ namespace Application.Features.Auth.Handlers.Commands
             }
             return claims;
         }
-
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials,
 List<Claim> claims)
         {
@@ -127,33 +147,15 @@ List<Claim> claims)
             return principal;
         }
 
-        public async Task<TokenDto> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<TokenDto> RefreshToken(TokenDto tokenDto)
         {
-            var principal = GetPrincipalFromExpiredToken(request.tokenDto.AccessToken);
+            var principal = GetPrincipalFromExpiredToken(tokenDto.AccessToken);
             var user = await _userManager.FindByNameAsync(principal.Identity.Name);
-            if (user == null || user.RefreshToken != request.tokenDto.RefreshToken ||
+            if (user == null || user.RefreshToken != tokenDto.RefreshToken ||
             user.RefreshTokenExpiryTime <= DateTime.Now)
                 throw new RefreshTokenBadRequest();
             _user = user;
             return await CreateToken(populateExp: false);
-        }
-
-        public async Task<(bool, TokenDto?)> Handle(ValidateUserCommand request, CancellationToken cancellationToken)
-        {
-            _user = await _userManager.FindByNameAsync(request.userForAuth.UserName);
-            var result = _user != null && await _userManager.CheckPasswordAsync(_user,
-            request.userForAuth.Password);
-            if (!result)
-            {
-                _logger.LogWarn($" ValidateUser : Authentication failed. Wrong user  name or password.");
-                return (false, null);
-            }
-            else
-            {
-                var CreatedToken = await CreateToken(request.populateExp);
-                return (true, CreatedToken);
-            }
-
         }
     }
 }

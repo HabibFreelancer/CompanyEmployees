@@ -1,5 +1,5 @@
-﻿using Application.Features.Auth.Requests.Commands;
-using CompanyEmployees.Presentation.ActionFilters;
+﻿using CompanyEmployees.Presentation.ActionFilters;
+using Contracts.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects.Auth;
@@ -16,13 +16,14 @@ namespace CompanyEmployees.Presentation.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly ISender _sender;
-        public TokenController(ISender sender) => _sender = sender;
+        private readonly IAuthenticationService _authenticationService;
+        public TokenController(IAuthenticationService authenticationService) => _authenticationService = authenticationService;
 
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh([FromBody] TokenDto tokenDto)
         {
-            var tokenDtoToReturn = await _sender.Send(new RefreshTokenCommand(tokenDto));
+            var tokenDtoToReturn = await
+            _authenticationService.RefreshToken(tokenDto);
             return Ok(tokenDtoToReturn);
         }
     }
