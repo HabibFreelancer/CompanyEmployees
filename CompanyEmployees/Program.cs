@@ -151,6 +151,7 @@ app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 /*plug the middelware when we use asp.net identity*/
 app.UseAuthentication();
+app.UseMiddleware<AuthenticatedTestRequestMiddleware>();
 app.UseAuthorization();
 
 /*plug swagger*/

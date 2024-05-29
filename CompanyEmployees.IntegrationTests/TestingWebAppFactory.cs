@@ -22,6 +22,8 @@ namespace CompanyEmployees.IntegrationTests
 app.ConfigureExceptionHandler(logger);*/
     public class TestingWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> where TEntryPoint : Program
     {
+     
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureServices(services =>
@@ -33,17 +35,11 @@ app.ConfigureExceptionHandler(logger);*/
                 if (descriptor != null)
                     services.Remove(descriptor);
 
-                // Add the authentication handler Test
-                services.AddAuthentication(defaultScheme: "TestScheme")
-                        .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
-                            "TestScheme", options => { });
-
                 /*add the database context to the service container and instruct it to use the in-memory database instead of the real database.*/
                 services.AddDbContext<RepositoryContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryEmployeeTest");
                 });
-
 
                 /*Finally, we ensure that we seed the data from the RepositoryContext class */
                 var sp = services.BuildServiceProvider();
@@ -61,10 +57,7 @@ app.ConfigureExceptionHandler(logger);*/
                     }
                 }
             });
-              
 
-
-           
         }
     }
 }
