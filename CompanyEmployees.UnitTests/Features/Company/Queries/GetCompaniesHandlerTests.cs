@@ -15,8 +15,7 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.UnitTests.Features.Company.Queries
 {
-    /*     private readonly IRepositoryManager _repository;
-        private readonly IMapper _mapper;*/
+  
     public class GetCompaniesHandlerTests
     {
         private readonly Mock<IRepositoryManager> _mockRepoManager;
