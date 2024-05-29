@@ -19,8 +19,6 @@ namespace Application.Behaviors
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-
-
             if (!_validators.Any())
                 return await next();
             var context = new ValidationContext<TRequest>(request);
@@ -36,7 +34,7 @@ namespace Application.Behaviors
                 Key = propertyName,
                 Values = errorMessages.Distinct().ToArray()
             })
-.ToDictionary(x => x.Key, x => x.Values);
+            .ToDictionary(x => x.Key, x => x.Values);
             if (errorsDictionary.Any())
                 throw new ValidationAppException(errorsDictionary);
             return await next();

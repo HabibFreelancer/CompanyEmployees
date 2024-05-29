@@ -16,7 +16,7 @@ namespace Application.Features.Company.Handlers.Queries
 IEnumerable<Product>>. This means this class will
 handle GetCompaniesQuery, in this case, returning the list of companies.
     We also inject the repository through the constructor*/
-    internal sealed class GetCompaniesHandler : IRequestHandler<GetCompaniesQuery, IEnumerable<CompanyDto>>
+    public sealed class GetCompaniesHandler : IRequestHandler<GetCompaniesQuery, IEnumerable<CompanyDto>>
                                                  , IRequestHandler<GetCompanyQuery, CompanyDto>
                                                     , IRequestHandler<GetCompaniesByIdsQuery, IEnumerable<CompanyDto>>
     {
@@ -38,7 +38,7 @@ handle GetCompaniesQuery, in this case, returning the list of companies.
         }
 
         public async Task<CompanyDto> Handle(GetCompanyQuery request, CancellationToken
-cancellationToken)
+            cancellationToken)
         {
             var company = await _repository.Company.GetCompanyAsync(request.Id,
             request.TrackChanges);
