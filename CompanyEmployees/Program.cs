@@ -115,8 +115,8 @@ extract the ILoggerManager service after the var app =
 builder.Build() code line because the Build method builds the
 WebApplication and registers all the services added with IOC
  */
-var logger = app.Services.GetRequiredService<ILoggerManager<ErrorDetails>>();
-app.ConfigureExceptionHandler(logger);
+// var logger = app.Services.GetRequiredService<ILoggerManager<ErrorDetails>>();
+app.ConfigureExceptionHandler();
 
 
 // Configure the HTTP request pipeline.
@@ -165,6 +165,7 @@ app.MapControllers();
 
 app.Run();
 
+
 /*By using AddNewtonsoftJson, we are replacing the System.Text.Json
 formatters for all JSON content. We don’t want to do that so, we are
 going ton add a simple workaround in the Program class*/
@@ -173,3 +174,10 @@ new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
 .Services.BuildServiceProvider()
 .GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters
 .OfType<NewtonsoftJsonPatchInputFormatter>().First();
+
+
+
+/*Test Integration : Our class doesn’t recognize the Program class even though we have the reference from the main project.
+ * That’s because in .NET 6 compiler generates the Program class behind the scenes as the internal class, thus making it inaccessible in our integration testing project.
+ * So to solve this, we can create a public partial Program class in the Program.cs file in the main project*/
+public partial class Program { }
