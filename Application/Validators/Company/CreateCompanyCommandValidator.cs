@@ -24,9 +24,9 @@ AbstractValidator<CreateCompanyCommand>
             RuleFor(c => c.Company.Address).NotEmpty().MaximumLength(60);
             RuleFor(c => c.Company.Address).NotEmpty().MaximumLength(60);
         }
-        private Task<bool> LeaveTypeNameUnique(string name, CancellationToken token)
+        private async Task<bool> LeaveTypeNameUnique(string name, CancellationToken token)
         {
-            return _repository.Company.IsCompanyUnique(name);
+            return await _repository.Company.IsCompanyUnique(name);
         }
 
         /* Validating null Object :Our recommendation is

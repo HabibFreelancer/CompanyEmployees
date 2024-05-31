@@ -23,7 +23,7 @@ namespace Application.Behaviors
                 return await next();
             var context = new ValidationContext<TRequest>(request);
             var errorsDictionary = _validators
-            .Select(x => x.Validate(context))
+            .Select(x => x.ValidateAsync(context, cancellationToken).GetAwaiter().GetResult())
             .SelectMany(x => x.Errors)
             .Where(x => x != null)
             .GroupBy(

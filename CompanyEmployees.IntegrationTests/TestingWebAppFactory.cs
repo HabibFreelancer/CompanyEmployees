@@ -17,9 +17,6 @@ using System.Threading.Tasks;
 
 namespace CompanyEmployees.IntegrationTests
 {
-
-    /*var logger = app.Services.GetRequiredService<ILoggerManager<ErrorDetails>>();
-app.ConfigureExceptionHandler(logger);*/
     public class TestingWebAppFactory<TEntryPoint> : WebApplicationFactory<Program> where TEntryPoint : Program
     {
      
@@ -57,6 +54,7 @@ app.ConfigureExceptionHandler(logger);*/
                     }
                 }
             });
+
 
         }
     }

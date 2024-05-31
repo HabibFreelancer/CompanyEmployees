@@ -21,13 +21,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "EmailService\EmailService.csproj", "{DA04B573-47E2-444B-A1D0-8F1C3359105A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "IdentityService\IdentityService.csproj", "{5521655A-B7B6-4116-B579-B6911BD93349}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "IdentityService\IdentityService.csproj", "{5521655A-B7B6-4116-B579-B6911BD93349}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{39733E86-9F01-453E-B681-293B8EA0F9C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployees.UnitTests", "CompanyEmployees.UnitTests\CompanyEmployees.UnitTests.csproj", "{0C3FA9EF-49E7-4239-A918-AB905F321FC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyEmployees.UnitTests", "CompanyEmployees.UnitTests\CompanyEmployees.UnitTests.csproj", "{0C3FA9EF-49E7-4239-A918-AB905F321FC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployees.IntegrationTests", "CompanyEmployees.IntegrationTests\CompanyEmployees.IntegrationTests.csproj", "{681DB160-8959-45FA-B65B-2F9D708F0A63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyEmployees.IntegrationTests", "CompanyEmployees.IntegrationTests\CompanyEmployees.IntegrationTests.csproj", "{681DB160-8959-45FA-B65B-2F9D708F0A63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployee.BlazorUI", "CompanyEmployee.BlazorUI\CompanyEmployee.BlazorUI.csproj", "{4ACF5C5C-C4E6-459B-BB41-D9818FC2E00B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{681DB160-8959-45FA-B65B-2F9D708F0A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{681DB160-8959-45FA-B65B-2F9D708F0A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{681DB160-8959-45FA-B65B-2F9D708F0A63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ACF5C5C-C4E6-459B-BB41-D9818FC2E00B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ACF5C5C-C4E6-459B-BB41-D9818FC2E00B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ACF5C5C-C4E6-459B-BB41-D9818FC2E00B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ACF5C5C-C4E6-459B-BB41-D9818FC2E00B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,38 +20,48 @@ namespace CompanyEmployees.Extensions
                  * */
                 appError.Run(async context =>
                 {
-                    var logger = app.Services.GetRequiredService<ILoggerManager<ErrorDetails>>();
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    context.Response.ContentType = "application/json";
-                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                    if (contextFeature != null)
+
+                    
+                    using (var scope = app.Services.CreateScope())
                     {
-                        context.Response.StatusCode = contextFeature.Error switch
+                        var logger = scope.ServiceProvider.GetRequiredService<ILoggerManager<ErrorDetails>>();
+                        //var logger = app.Services.GetRequiredService<ILoggerManager<ErrorDetails>>();
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        context.Response.ContentType = "application/json";
+                        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                        if (contextFeature != null)
                         {
-                            NotFoundException => StatusCodes.Status404NotFound,
-                            BadRequestException => StatusCodes.Status400BadRequest,
-                            ValidationAppException => StatusCodes.Status422UnprocessableEntity,
-                            _ => StatusCodes.Status500InternalServerError
-                        };
-                        logger.LogError($"Something went wrong: {contextFeature.Error}");
-                        if (contextFeature.Error is ValidationAppException exception)
-                        {
-                            await context.Response
-                            .WriteAsync(JsonSerializer.Serialize(new
+                            context.Response.StatusCode = contextFeature.Error switch
                             {
-                                exception.Errors
-                            }));
-                        }
-                        else
-                        {
-                            await context.Response.WriteAsync(new ErrorDetails()
+                                NotFoundException => StatusCodes.Status404NotFound,
+                                BadRequestException => StatusCodes.Status400BadRequest,
+                                ValidationAppException => StatusCodes.Status422UnprocessableEntity,
+                                _ => StatusCodes.Status500InternalServerError
+                            };
+                            logger.LogError($"Something went wrong: {contextFeature.Error}");
+                            if (contextFeature.Error is ValidationAppException exception)
                             {
-                                StatusCode = context.Response.StatusCode,
-                                Message = contextFeature.Error.Message,
-                            }.ToString());
+                                await context.Response
+                                .WriteAsync(JsonSerializer.Serialize(new
+                                {
+                                    exception.Errors
+                                }));
+                            }
+                            else
+                            {
+                                await context.Response.WriteAsync(new ErrorDetails()
+                                {
+                                    StatusCode = context.Response.StatusCode,
+                                    Message = contextFeature.Error.Message,
+                                }.ToString());
+                            }
+
                         }
 
+                        // your usual code
                     }
+
+                    
                 });
             });
         }
