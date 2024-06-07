@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using CompanyEmployee.BlazorUI;
 using CompanyEmployee.BlazorUI.Common;
 using CompanyEmployee.BlazorUI.Contracts;
@@ -18,6 +19,9 @@ builder.Services.AddTransient<AcceptViaHeadersHandler>();
 // Microsoft.Extension.Http 
 builder.Services.AddHttpClient<IClient, Client>(Client => Client.BaseAddress = new Uri("https://localhost:7050"))
     .AddHttpMessageHandler<AcceptViaHeadersHandler>();
+
+builder.Services.AddBlazoredLocalStorage();
+
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 

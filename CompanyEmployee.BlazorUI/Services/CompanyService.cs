@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Blazored.LocalStorage;
 using CompanyEmployee.BlazorUI.Contracts;
 using CompanyEmployee.BlazorUI.Models.Company;
 using CompanyEmployee.BlazorUI.Services.Base;
@@ -9,7 +10,7 @@ namespace CompanyEmployee.BlazorUI.Services
     {
         private readonly IMapper _mapper;
 
-        public CompanyService(IClient client, IMapper mapper) : base(client)
+        public CompanyService(IClient client, IMapper mapper, ILocalStorageService localStorage) : base(client, localStorage)
         {
             this._mapper = mapper;
         }

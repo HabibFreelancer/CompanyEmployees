@@ -1,7 +1,9 @@
 ﻿using CompanyEmployees.Presentation.ActionFilters;
 using Contracts.Identity;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;
+using Shared.DataTransferObjects.Auth;
 using Shared.DataTransferObjects.User;
 using System;
 using System.Collections.Generic;
@@ -19,7 +21,7 @@ namespace CompanyEmployees.Presentation.Controllers
         public AuthenticationController(IAuthenticationService authenticationService) => _authenticationService = authenticationService;
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
+        public async Task<ActionResult<RegistrationResponse>> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
             var result = await
             _authenticationService.RegisterUser(userForRegistration);
@@ -31,16 +33,16 @@ namespace CompanyEmployees.Presentation.Controllers
                 }
                 return BadRequest(ModelState);
             }
-            return StatusCode(201);
+            return StatusCode(201, new RegistrationResponse() { Email = userForRegistration.Email });
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] UserForAuthenticationDto user)
         {
             if (!await _authenticationService.ValidateUser(user))
                 return Unauthorized();
-            var tokenDto = await _authenticationService.CreateToken(populateExp: true);
-            return Ok(tokenDto);
+            var response = await _authenticationService.CreateToken(populateExp: true);
+            return Ok(response);
         }
 
     }

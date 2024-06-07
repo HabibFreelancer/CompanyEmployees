@@ -65,7 +65,7 @@ namespace Service
             return result;
         }
 
-        public async Task<TokenDto> CreateToken(bool populateExp)
+        public async Task<AuthResponse> CreateToken(bool populateExp)
         {
             var signingCredentials = GetSigningCredentials();
             var claims = await GetClaims();
@@ -76,7 +76,16 @@ namespace Service
                 _user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
             await _userManager.UpdateAsync(_user);
             var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            return new TokenDto(accessToken, refreshToken);
+            var response = new AuthResponse
+            {
+                Id = _user.Id,
+                Email = _user.Email,
+                UserName = _user.UserName,
+                Token = new TokenDto(accessToken, refreshToken)
+
+            };
+
+            return response;
         }
         private SigningCredentials GetSigningCredentials()
         {
@@ -155,7 +164,8 @@ List<Claim> claims)
             user.RefreshTokenExpiryTime <= DateTime.Now)
                 throw new RefreshTokenBadRequest();
             _user = user;
-            return await CreateToken(populateExp: false);
+            var result = await CreateToken(populateExp: false);
+            return result.Token;
         }
     }
 }

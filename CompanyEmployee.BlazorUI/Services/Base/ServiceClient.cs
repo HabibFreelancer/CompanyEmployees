@@ -26,21 +26,21 @@ namespace CompanyEmployee.BlazorUI.Services.Base
     {
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AuthenticationAsync(UserForRegistrationDto body);
+        System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AuthenticationAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task LoginAsync(UserForAuthenticationDto body);
+        System.Threading.Tasks.Task<AuthResponse> LoginAsync(UserForAuthenticationDto body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task LoginAsync(UserForAuthenticationDto body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AuthResponse> LoginAsync(UserForAuthenticationDto body, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets the list of all companies
@@ -359,7 +359,7 @@ namespace CompanyEmployee.BlazorUI.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task AuthenticationAsync(UserForRegistrationDto body)
+        public virtual System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body)
         {
             return AuthenticationAsync(body, System.Threading.CancellationToken.None);
         }
@@ -367,7 +367,7 @@ namespace CompanyEmployee.BlazorUI.Services.Base
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AuthenticationAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -380,6 +380,7 @@ namespace CompanyEmployee.BlazorUI.Services.Base
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
@@ -411,7 +412,12 @@ namespace CompanyEmployee.BlazorUI.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            return;
+                            var objectResponse_ = await ReadObjectResponseAsync<RegistrationResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -435,7 +441,7 @@ namespace CompanyEmployee.BlazorUI.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task LoginAsync(UserForAuthenticationDto body)
+        public virtual System.Threading.Tasks.Task<AuthResponse> LoginAsync(UserForAuthenticationDto body)
         {
             return LoginAsync(body, System.Threading.CancellationToken.None);
         }
@@ -443,7 +449,7 @@ namespace CompanyEmployee.BlazorUI.Services.Base
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task LoginAsync(UserForAuthenticationDto body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<AuthResponse> LoginAsync(UserForAuthenticationDto body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -456,6 +462,7 @@ namespace CompanyEmployee.BlazorUI.Services.Base
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
@@ -487,7 +494,12 @@ namespace CompanyEmployee.BlazorUI.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            return;
+                            var objectResponse_ = await ReadObjectResponseAsync<AuthResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -2191,6 +2203,24 @@ namespace CompanyEmployee.BlazorUI.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class AuthResponse
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("userName")]
+        public string UserName { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("token")]
+        public TokenDto Token { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CompanyDto
     {
 
@@ -2357,6 +2387,15 @@ namespace CompanyEmployee.BlazorUI.Services.Base
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
             set { _additionalProperties = value; }
         }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class RegistrationResponse
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("email")]
+        public string Email { get; set; }
 
     }
 

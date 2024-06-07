@@ -1,12 +1,15 @@
-﻿namespace CompanyEmployee.BlazorUI.Services.Base
+﻿using Blazored.LocalStorage;
+
+namespace CompanyEmployee.BlazorUI.Services.Base
 {
     public class BaseHttpService
     {
         protected IClient _client;
-
-        public BaseHttpService(IClient client)
+        protected readonly ILocalStorageService _localStorage;
+        public BaseHttpService(IClient client, ILocalStorageService localStorage)
         {
             _client = client;
+            _localStorage = localStorage;
         }
 
         /*Convert the ApiException that generate from ServiceClient to our custorm return response Response.cs */
