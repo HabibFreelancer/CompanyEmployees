@@ -1,0 +1,52 @@
+﻿@page "/companies/"
+<h3>Companies</h3>
+
+<div class="m-2 d-flex justify-content-end">
+    <button @onclick="CreateCompany" class="btn btn-success">Add Company</button>
+</div>
+
+
+@if (string.IsNullOrEmpty(Message) == false)
+{
+    <div class="alert alert-danger">
+        @Message
+    </div>
+}
+<div clas></div>
+@if (Companies == null)
+{
+    <p>Loading Data...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    FullAddress
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Companies)
+            {
+                <tr>
+                    <td>@company.Id </td>
+                    <td>@company.Name </td>
+                    <td>@company.FullAddress </td>
+                    <td>
+                        <p> To Implement</p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

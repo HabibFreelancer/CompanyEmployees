@@ -44,12 +44,12 @@ and CreateCompany are the only actions on the root URI level
         /// </summary>
         /// <returns>The companies list</returns>
         [HttpGet(Name = "GetCompanies")]
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
 
-        public async Task<IActionResult> GetCompanies()
+        public async Task<List<CompanyDto>> GetCompanies()
         {
             var companies = await _sender.Send(new GetCompaniesQuery(TrackChanges: false));
-            return Ok(companies);
+            return companies.ToList();
         }
 
         /// <summary>

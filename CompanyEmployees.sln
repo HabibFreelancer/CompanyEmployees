@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyEmployees.UnitTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyEmployees.IntegrationTests", "CompanyEmployees.IntegrationTests\CompanyEmployees.IntegrationTests.csproj", "{681DB160-8959-45FA-B65B-2F9D708F0A63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployee.BlazorUI", "CompanyEmployee.BlazorUI\CompanyEmployee.BlazorUI.csproj", "{4ACF5C5C-C4E6-459B-BB41-D9818FC2E00B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyEmployee.BlazorUI", "CompanyEmployee.BlazorUI\CompanyEmployee.BlazorUI.csproj", "{4ACF5C5C-C4E6-459B-BB41-D9818FC2E00B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

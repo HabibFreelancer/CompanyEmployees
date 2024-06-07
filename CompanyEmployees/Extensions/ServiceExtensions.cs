@@ -31,7 +31,8 @@ namespace CompanyEmployees.Extensions
             services.AddCors(options =>
                 {
                     options.AddPolicy("CorsPolicy", builder =>
-                    builder.AllowAnyOrigin()
+                    builder
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     /*to enable the client application to read the new X-Pagination
