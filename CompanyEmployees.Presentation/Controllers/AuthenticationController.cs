@@ -20,7 +20,7 @@ namespace CompanyEmployees.Presentation.Controllers
         private readonly IAuthenticationService _authenticationService;
         public AuthenticationController(IAuthenticationService authenticationService) => _authenticationService = authenticationService;
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult<RegistrationResponse>> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
             var result = await

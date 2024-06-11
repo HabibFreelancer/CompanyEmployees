@@ -26,12 +26,12 @@ namespace CompanyEmployee.BlazorUI.Services.Base
     {
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body);
+        System.Threading.Tasks.Task<RegistrationResponse> RegisterAsync(UserForRegistrationDto body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<RegistrationResponse> RegisterAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -359,15 +359,15 @@ namespace CompanyEmployee.BlazorUI.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body)
+        public virtual System.Threading.Tasks.Task<RegistrationResponse> RegisterAsync(UserForRegistrationDto body)
         {
-            return AuthenticationAsync(body, System.Threading.CancellationToken.None);
+            return RegisterAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<RegistrationResponse> AuthenticationAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<RegistrationResponse> RegisterAsync(UserForRegistrationDto body, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -384,8 +384,8 @@ namespace CompanyEmployee.BlazorUI.Services.Base
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/authentication"
-                    urlBuilder_.Append("api/authentication");
+                    // Operation Path: "api/authentication/register"
+                    urlBuilder_.Append("api/authentication/register");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 

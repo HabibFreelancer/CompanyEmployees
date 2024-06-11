@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using System.Net.Http.Headers;
 
 namespace CompanyEmployee.BlazorUI.Services.Base
 {
@@ -27,6 +28,14 @@ namespace CompanyEmployee.BlazorUI.Services.Base
             {
                 return new Response<Guid>() { Message = "Something went wrong, please try again later.", Success = false };
             }
+        }
+
+        protected async Task AddBearerToken()
+        {
+            string savedToken = await _localStorage.GetItemAsync<string>("token");
+            if (!string.IsNullOrEmpty(savedToken))
+                _client.HttpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", savedToken);
         }
     }
 }

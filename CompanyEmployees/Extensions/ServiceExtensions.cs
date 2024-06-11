@@ -17,7 +17,8 @@ using Entities.ConfigurationModels.Email;
 using EmailService;
 using Contracts.Infrastructure;
 using Contracts.Persistence;
-
+using Contracts.Identity;
+using Service;
 namespace CompanyEmployees.Extensions
 {
     public static class ServiceExtensions
@@ -256,6 +257,13 @@ services.Configure<JwtConfiguration>(configuration.GetSection("JwtSettings"));
         {
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailSender, EmailSender>();
+        }
+
+        /*Configure Identity Services */
+
+        public static void ConfigureIdentityServices(this IServiceCollection services)
+        {
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
         }
     }
 

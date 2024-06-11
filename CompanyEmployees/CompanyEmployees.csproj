@@ -25,6 +25,7 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\CompanyEmployees.Presentation\CompanyEmployees.Presentation.csproj" />
     <ProjectReference Include="..\EmailService\EmailService.csproj" />
+    <ProjectReference Include="..\IdentityService\IdentityService.csproj" />
     <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>

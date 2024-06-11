@@ -25,7 +25,7 @@ using Shared.DataTransferObjects.Auth;
 
 namespace Service
 {
-    internal sealed class AuthenticationService : IAuthenticationService
+    public sealed class AuthenticationService : IAuthenticationService
     {
         private readonly ILoggerManager<User> _logger;
         private readonly IMapper _mapper;
@@ -114,7 +114,7 @@ List<Claim> claims)
             issuer: _jwtConfiguration.ValidIssuer,
             audience: _jwtConfiguration.ValidAudience,
             claims: claims,
-            expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtConfiguration.Expires)),
+            expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_jwtConfiguration.Expires)),
             signingCredentials: signingCredentials
             );
             return tokenOptions;

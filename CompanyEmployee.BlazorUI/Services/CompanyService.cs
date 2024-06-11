@@ -48,13 +48,11 @@ namespace CompanyEmployee.BlazorUI.Services
 
         public async Task<List<CompanyVM>> GetCompanies()
         {
-          
             var companies = await _client.GetCompaniesAsync();
             return _mapper.Map<List<CompanyVM>>(companies);
         }
 
 
-        //   System.Threading.Tasks.Task CompaniesPUTAsync(System.Guid id, CompanyForUpdateDto body);
         public async  Task<Response<Guid>> UpdateCompay(System.Guid id, CompanyVM company)
         {
             try
